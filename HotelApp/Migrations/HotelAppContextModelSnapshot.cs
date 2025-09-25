@@ -53,7 +53,7 @@ namespace HotelAppLibrary.Migrations
                     b.HasIndex("RoomId")
                         .IsUnique();
 
-                    b.ToTable("Bookings");
+                    b.ToTable("Bookings", (string)null);
                 });
 
             modelBuilder.Entity("HotelAppLibrary.Models.Guest", b =>
@@ -76,7 +76,7 @@ namespace HotelAppLibrary.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Guests");
+                    b.ToTable("Guests", (string)null);
                 });
 
             modelBuilder.Entity("HotelAppLibrary.Models.Room", b =>
@@ -100,7 +100,7 @@ namespace HotelAppLibrary.Migrations
                     b.HasIndex("RoomTypeId")
                         .IsUnique();
 
-                    b.ToTable("Rooms");
+                    b.ToTable("Rooms", (string)null);
                 });
 
             modelBuilder.Entity("HotelAppLibrary.Models.RoomType", b =>
@@ -126,7 +126,7 @@ namespace HotelAppLibrary.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("RoomTypes");
+                    b.ToTable("RoomTypes", (string)null);
                 });
 
             modelBuilder.Entity("HotelAppLibrary.Models.Booking", b =>
