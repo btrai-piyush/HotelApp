@@ -1,11 +1,12 @@
-﻿using System;
+﻿using HotelAppLibrary.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HotelAppLibrary.Models
+namespace HotelAppLibrary.Entities
 {
     public class Guest
     {

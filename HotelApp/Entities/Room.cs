@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HotelAppLibrary.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -6,22 +7,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HotelAppLibrary.Models
+namespace HotelAppLibrary.Entities
 {
-    public class RoomType
+    public class Room
     {
         public int Id { get; set; }
 
         [MaxLength(20)]
         [Column(TypeName = "varchar(20)")]
-        public string Title { get; set; }
+        public string RoomNumber { get; set; }
 
-        [MaxLength(100)]
-        [Column(TypeName = "varchar(100)")]
-        public string Description { get; set; }
+        [Required]
+        public int RoomTypeId { get; set; }
+        public RoomType RoomType { get; set; }
 
-        public decimal Price { get; set; }
-
-        public Room? Rooms { get; set; }
+        public Booking? Bookings { get; set; }
     }
 }

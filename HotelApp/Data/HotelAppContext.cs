@@ -1,4 +1,4 @@
-﻿using HotelAppLibrary.Models;
+﻿using HotelAppLibrary.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
