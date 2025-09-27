@@ -1,5 +1,7 @@
 ﻿using HotelAppLibrary.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,22 +9,31 @@ using System.Threading.Tasks;
 
 namespace HotelAppLibrary.Data
 {
-    public static class EfDataAccess
+    public class EfDataAccess
     {
-        private static readonly HotelAppContext context = new HotelAppContext();
+        private readonly HotelAppContext context = new HotelAppContext();
 
-        //public List<RoomType> GetAvailableRooms(DateTime startDate,DateTime endDate)
-        //{
-        //    var rooms=;
-
-        //        return rooms;
-        //}
-
-        public static List<Room> GetAllRooms()
+        public List<RoomType> GetAvailableRooms(DateTime startDate, DateTime endDate)
         {
-            var rooms = context.Rooms.ToList();
+            // To find available RoomTypes, we need to check if any Room of that type has NO bookings that overlap the given dates.
+            // We'll join Rooms and Bookings, and filter accordingly.
 
-            return rooms;
+            var availableRoomTypes = context.RoomTypes
+                .Include(rt => rt.Rooms)
+                .Where(rt => rt.Rooms.Any(room =>
+                    !context.Bookings.Any(booking =>
+                        booking.RoomId == room.Id &&
+                        (
+                            (startDate >= booking.StartDate && startDate <= booking.EndDate) ||
+                            (endDate >= booking.StartDate && endDate <= booking.EndDate) ||
+                            (startDate <= booking.StartDate && endDate >= booking.EndDate)
+                        )
+                    )
+                ))
+                .ToList();
+
+            return availableRoomTypes;
         }
+
     }
 }
