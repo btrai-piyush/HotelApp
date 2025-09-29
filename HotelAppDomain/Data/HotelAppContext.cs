@@ -12,6 +12,8 @@ namespace HotelAppLibrary.Data
 {
     public class HotelAppContext : DbContext
     {
+        public HotelAppContext(DbContextOptions<HotelAppContext> options) : base(options) { }
+
         public DbSet<Booking> Bookings { get; set; }
         public DbSet<Room> Rooms { get; set; }
         public DbSet<Guest> Guests { get; set; }

@@ -1,3 +1,6 @@
+using HotelAppLibrary.Data;
+using Microsoft.EntityFrameworkCore;
+
 namespace HotelAppMVC
 {
     public class Program
@@ -8,6 +11,12 @@ namespace HotelAppMVC
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            //Register HotelAppContext with DI
+            builder.Services.AddDbContext<HotelAppContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
+
+            //Register EfDataAccess with DI
+            builder.Services.AddScoped<EfDataAccess>();
 
             var app = builder.Build();
 
