@@ -1,0 +1,19 @@
+﻿@model HotelAppMVC.Models.RoomSearchModel
+
+@{
+    ViewBag.Title = "Search Room";
+}
+
+<h1>Room Search</h1>
+
+<form method="post">
+    <div class="form-group">
+        <label asp-for="@Model.StartDate" />
+        <input type="date" asp-for="@Model.StartDate" />
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.EndDate" />
+        <input type="date" asp-for="@Model.EndDate" />
+    </div>
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
