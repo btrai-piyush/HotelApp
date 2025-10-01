@@ -15,7 +15,7 @@ namespace HotelAppMVC.Controllers
 
         public IActionResult SearchRoom()
         {
-            return View();
+            return View(new RoomSearchModel());
         }
 
         [HttpPost]
@@ -23,14 +23,14 @@ namespace HotelAppMVC.Controllers
         {
             roomSearchModel.AvailableRoomTypes = await _efDataAccess.GetAvailableRoomTypes(roomSearchModel.StartDate, roomSearchModel.EndDate);
 
-            return RedirectToAction("BookRoom", roomSearchModel);
+            return View(roomSearchModel);
         }
 
         [HttpGet]
-        public IActionResult BookRoom(RoomSearchModel roomSearchModel)
+        public IActionResult BookRoom(BookRoomModel bookRoomModel)
         {
 
-            return View(roomSearchModel);
+            return View(bookRoomModel);
         }
 
 
