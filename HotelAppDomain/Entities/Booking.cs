@@ -25,5 +25,9 @@ namespace HotelAppLibrary.Entities
 
         public bool CheckedIn { get; set; }
         public decimal TotalCost { get; set; }
+
+        public ICollection<Room> Rooms { get; set; }
+
+        public ICollection<Guest> Guests { get; set; }
     }
 }

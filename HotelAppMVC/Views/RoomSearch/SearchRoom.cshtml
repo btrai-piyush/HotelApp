@@ -8,11 +8,11 @@
 
 <form method="post">
     <div class="form-group">
-        <label asp-for="@Model.StartDate" />
+        <label asp-for="@Model.StartDate">Start Date: </label>
         <input type="date" asp-for="@Model.StartDate" />
     </div>
     <div class="form-group">
-        <label asp-for="@Model.EndDate" />
+        <label asp-for="@Model.EndDate">End Date: </label>
         <input type="date" asp-for="@Model.EndDate" />
     </div>
     <button type="submit" class="btn btn-primary">Search</button>
@@ -39,14 +39,15 @@
                     </td>
                     <td>@string.Format("{0:C}", room.Price)</td>
                     <td>
-                        @using (Html.BeginForm("BookRoom", "RoomSearchController"))
+                        @using (Html.BeginForm("ContinueBooking", "RoomSearch"))
                         {
-                            @Html.Hidden("RoomTypeTd", room.Id)
-
+                            @Html.HiddenFor(x => x.StartDate)
+                            @Html.HiddenFor(x => x.EndDate)
+                            @Html.Hidden("RoomTypeId", room.Id)
+                            <input class="btn btn-sm btn-warning" type="submit" value="Book Now" />
                         }
                     </td>
                 </tr>
-
             }
         </tbody>
     </table>

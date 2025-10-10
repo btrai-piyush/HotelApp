@@ -62,19 +62,26 @@ namespace HotelAppLibrary.Data
         }
 
         public void BookGuest(string firstName,
-                              string LastName,
+                              string lastName,
                               DateTime startDate,
                               DateTime endDate,
                               int roomTypeId)
         {
-            var newGuest = new Guest
-            {
+            bool guestExists = _context.Guests.Where(g => g.FirstName == firstName && g.LastName == lastName).Any();
 
-                FirstName = firstName,
-                LastName = LastName
-            };
-            _context.Guests.Add(newGuest);
-            _context.SaveChanges();
+            if (!guestExists)
+            {
+                var newGuest = new Guest
+                {
+
+                    FirstName = firstName,
+                    LastName = lastName
+                };
+                _context.Guests.Add(newGuest);
+                _context.SaveChanges();
+            }
+
+            Guest guest = _context.Guests.FirstOrDefault(g => g.FirstName.Equals(firstName) && g.LastName.Equals(lastName));
 
             RoomType? roomType = _context.RoomTypes.Where(rt => rt.Id == roomTypeId).First();
 
@@ -85,7 +92,7 @@ namespace HotelAppLibrary.Data
             var newBooking = new Booking
             {
                 RoomId = availableRooms.First().Id,
-                GuestId = newGuest.Id,
+                GuestId = guest.Id,
                 StartDate = startDate,
                 EndDate = endDate,
                 TotalCost = timeStaying.Days * roomType.Price
@@ -136,5 +143,10 @@ namespace HotelAppLibrary.Data
             }
         }
 
+        public async Task<RoomType> GetRoomTypeById(int id)
+        {
+            var roomType = await _context.RoomTypes.FirstOrDefaultAsync(i => i.Id == id);
+            return roomType;
+        }
     }
 }

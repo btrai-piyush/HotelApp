@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using HotelAppLibrary.Entities;
+using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
 namespace HotelAppMVC.Models
@@ -22,6 +23,6 @@ namespace HotelAppMVC.Models
         [BindProperty]
         public string LastName { get; set; }
 
-
+        public RoomType RoomType { get; set; }
     }
 }
