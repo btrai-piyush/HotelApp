@@ -26,13 +26,29 @@ namespace HotelAppMVC.Controllers
             return View(roomSearchModel);
         }
 
-        [HttpGet]
-        public IActionResult BookRoom(BookRoomModel bookRoomModel)
+        public IActionResult ContinueBooking(DateTime startDate, DateTime endDate, int roomTypeId)
         {
+            BookRoomModel bookRoomModel = new BookRoomModel
+            {
+                RoomTypeId = roomTypeId,
+                StartDate = startDate,
+                EndDate = endDate,
+            };
+            return RedirectToAction("BookRoom", "RoomSearch", bookRoomModel);
+        }
 
+        public async Task<IActionResult> BookRoom(BookRoomModel bookRoomModel)
+        {
+            bookRoomModel.RoomType = await _efDataAccess.GetRoomTypeById(bookRoomModel.RoomTypeId);
             return View(bookRoomModel);
         }
 
+        [HttpPost]
+        public IActionResult FinaliseBooking(string firstName, string lastName, DateTime startDate, DateTime endDate, int roomTypeId)
+        {
+            _efDataAccess.BookGuest(firstName, lastName, startDate, endDate, roomTypeId);
+             return RedirectToAction("Index", "Home");
+        }
 
     }
 }
