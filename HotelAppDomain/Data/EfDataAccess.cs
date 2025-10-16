@@ -110,7 +110,7 @@ namespace HotelAppLibrary.Data
                            on b.RoomId equals r.Id
                            join t in _context.Set<RoomType>()
                            on r.RoomTypeId equals t.Id
-                           where b.StartDate == date && g.LastName == lastName
+                           where b.StartDate.Date == date.Date && g.LastName == lastName
                            select new BookingFullModel
                            {
                                Id = b.Id,
