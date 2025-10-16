@@ -22,9 +22,6 @@ namespace HotelAppLibrary.Data
 
         public async Task<List<RoomType>> GetAvailableRoomTypes(DateTime startDate, DateTime endDate)
         {
-            // To find available RoomTypes, we need to check if any Room of that type has NO bookings that overlap the given dates.
-            // We'll join Rooms and Bookings, and filter accordingly.
-
             var availableRoomTypes = await _context.RoomTypes
                 .Include(rt => rt.Rooms)
                 .Where(rt => rt.Rooms.Any(room =>
