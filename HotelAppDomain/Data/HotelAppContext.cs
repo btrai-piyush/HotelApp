@@ -23,7 +23,8 @@ namespace HotelAppLibrary.Data
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json");
+                .AddJsonFile("appsettings.json")
+                .AddUserSecrets<HotelAppContext>();
             var config = builder.Build();
 
             optionsBuilder.UseSqlServer(config.GetConnectionString("Default"));
